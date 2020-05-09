@@ -1,21 +1,33 @@
-<h1>Image Resizer</h1>
+<main>
+  <div class="container">
+    <h1>Pic Ninja</h1>
+    <img src="/img/undraw_image_focus.svg" alt="Image" class="main-image">
 
-<h2>Upload Photos</h2>
-<form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
-  <h2>Select an image to upload:</h2>
-  <div class="upload-container"><input id="file-picker" type="file" name="image"></div>
-  <div><input type="submit" value="Upload Image"></div>
-</form>
+    <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
+      {{!-- <h2>Select an image to upload</h2> --}}
 
-<p id="message">{{message}}</p>
+      <div class="upload-container">
+        <label class="choose-label">Select image to upload</label>
+        <input id="file-picker" type="file" name="image">
+      </div>
+      <div class="upload-btn">
+        <label class="upload-label">Upload image</label>
+        <input type="submit" value="Upload Image">
+      </div>
 
-<h2>Generated Thumbnails</h2>
-{{#each this.thumbnails}}
-  <img src="https://{{../accountName}}.blob.core.windows.net/{{../containerName}}/{{name}}">
-{{/each}}
+    </form>
 
-<hr>
-<p>This app has no official privacy policy. Your data will be uploaded to a service in order to produce a thumbnail. Your images will be public once you upload them and there is no automated way to remove them.</p>
+    <p id="message">{{message}}</p>
+
+    <small>&copy Pic Ninja, v01</small>
+
+    {{!-- <h2>Generated Thumbnails</h2> --}}
+    {{#each this.thumbnails}}
+    <img src="https://{{../accountName}}.blob.core.windows.net/{{../containerName}}/{{name}}">
+    {{/each}}
+  </div>
+</main>
+
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
