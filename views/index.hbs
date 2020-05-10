@@ -1,11 +1,11 @@
-<main>
-  <div class="container">
-    <h1>Pic Ninja</h1>
-    <img src="/img/undraw_image_focus.svg" alt="Image" class="main-image">
+<div class="wrapper">
+  <div class="main-container">
+    <div>
+      <h1>Pic Ninja</h1>
+      <img src="/img/undraw_image_focus.svg" alt="Image" class="main-image">
+    </div>   
 
     <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
-      {{!-- <h2>Select an image to upload</h2> --}}
-
       <div class="upload-container">
         <label class="choose-label">Select image to upload</label>
         <input id="file-picker" type="file" name="image">
@@ -14,19 +14,17 @@
         <label class="upload-label">Upload image</label>
         <input type="submit" value="Upload Image">
       </div>
-
     </form>
 
     <p id="message">{{message}}</p>
-
-    <small>&copy Pic Ninja, v01</small>
 
     {{!-- <h2>Generated Thumbnails</h2> --}}
     {{#each this.thumbnails}}
     <img src="https://{{../accountName}}.blob.core.windows.net/{{../containerName}}/{{name}}">
     {{/each}}
-  </div>
-</main>
+  </div>  
+    <small>&copy Pic Ninja, v02</small>  
+</div>
 
 
 <script>
