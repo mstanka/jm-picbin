@@ -5,25 +5,24 @@
       <img src="/img/undraw_image_focus.svg" alt="Image" class="main-image">
     </div>   
 
-    <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
-      <div class="upload-container">
-        <label class="choose-label">Select image to upload</label>
-        <input id="file-picker" type="file" name="image">
-      </div>
-      <div class="upload-btn">
-        <label class="upload-label">Upload image</label>
-        <input type="submit" value="Upload Image">
-      </div>
-    </form>
-
-    <p id="message">{{message}}</p>
+    <div class="container-upload"> 
+      <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
+        <div>
+          <input id="file-picker" class="file-upload__input" type="file" name="image">
+          <button id="file-btn" class="btn btn-secondary">Choose file(s) to upload</button>
+          <span class="file-upload__label"></span>
+        </div>
+        <button class="btn btn-primary" type="submit">Upload file(s)</button>
+        <p id="message" class="file-upload__label">{{message}}</p>
+      </form>
+    </div>    
 
     {{!-- <h2>Generated Thumbnails</h2> --}}
     {{#each this.thumbnails}}
     <img src="https://{{../accountName}}.blob.core.windows.net/{{../containerName}}/{{name}}">
     {{/each}}
   </div>  
-    <small>&copy Pic Ninja, v02</small>  
+    <small>&copy Pic Ninja, v03</small>  
 </div>
 
 
@@ -31,11 +30,14 @@
   document.addEventListener('DOMContentLoaded', () => {
 
     const message = document.getElementById('message');
-    const picker = document.getElementById('file-picker');
+    const picker = document.getElementById('file-picker'); // input
+    const button = document.getElementById('file-btn');
+    const label = button.parentElement.querySelector('.file-upload__label');
+    const defaultLabelText = 'No file(s) selected';
 
     document.getElementById('upload-form').addEventListener('submit', (e) => {
 
-      message.innerText = '';
+      message.innerText = '';      
 
       if(!picker.files.length) {
         message.innerText = 'Please select an image to upload.';
@@ -44,5 +46,20 @@
       }
     });
 
+    label.textContent = defaultLabelText;
+    label.title = defaultLabelText;
+
+    button.addEventListener('click', () => {
+      picker.click();
+    });
+
+    picker.addEventListener('change', () => {
+      console.log(picker.files);
+      const filenameList = Array.from(picker.files).map(file => {
+        return file.name;
+      });
+      label.textContent = filenameList.join(', ') || defaultLabelText;
+      label.title = label.textContent;
+    });
   });
 </script>
