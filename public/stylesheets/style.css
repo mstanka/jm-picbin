@@ -40,6 +40,38 @@ h2 {
   margin-bottom: 1rem;
 }
 
+.btn {
+  border-radius: 10px;
+  border: 2px solid #0f0e17;
+  max-width: 350px;
+  width: 100%;
+  padding: 8px 20px;
+  margin-bottom: 1rem;
+  text-align: center;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #ff8906;
+  color: #fffffe; 
+}
+
+.btn-primary:hover {
+  background-color: #3f3d56;
+  color: #fffffe;
+}
+
+.btn-secondary {
+  background-color: #fffffe;
+  color: #3f3d56;
+}
+
+.btn-secondary:hover {
+  background-color: #3f3d56;
+  color: #fffffe;
+}
+
 .container {
   margin: 0 auto;  
   display: grid;
@@ -54,77 +86,34 @@ h2 {
 }
 
 .main-image {
-  max-width: 450px;
+  max-width: 350px;
   width: 100%;
 }
 
-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.container-upload {  
+  position: relative;
 }
 
-input[type="file"],
-input[type="submit"] {
+.file-upload__input {
   display: block;
   max-width: 350px;
   width: 100%;
   opacity: 0;
   position: absolute;
-  top:0;
+  top: 0;
   left: 0;
   cursor: pointer;
+  padding: 20px;
 }
 
-input[type="file"] {
-  padding: 30px;
-}
-
-input[type="submit"] {
-  padding: 10px;
-}
-
-.upload-container {
-  position: relative;
-  padding: 30px 0;
-  text-align: center;
+.file-upload__label {
+  display: block;
   max-width: 350px;
-  width: 100%;
-  margin-bottom: 1rem;
-  border-radius: 10px;
-  border: 1px solid #0f0e17;
-  cursor: pointer;
-}
-
-.choose-label {
-  letter-spacing: 1px;
-  color: #3f3d56;
-  cursor: pointer;
-}
-
-.upload-btn {
-  position: relative;
-  background-color: #ff8906;
-  border-radius: 10px;
-  border: 2px solid #0f0e17;
-  color: #ffffff;
-  max-width: 350px;
-  width: 100%;
-  padding: 8px 20px;
-  margin-bottom: 1rem;
-  text-align: center;
-  transition: all 0.5s;
-}
-
-.upload-btn:hover {
-  background-color: #3f3d56;
-}
-
-.upload-label {
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  padding-bottom: 1rem;
+  font-size: .7rem;
+  text-overflow: hidden;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 small {
