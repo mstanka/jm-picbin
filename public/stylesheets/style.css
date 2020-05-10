@@ -40,7 +40,7 @@ h2 {
   margin-bottom: 1rem;
 }
 
-.main-container {
+.container {
   margin: 0 auto;  
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -132,8 +132,13 @@ small {
   padding: 1rem 0;
 }
 
+.success-container,
+.error-container {
+  grid-template-columns: 1fr;
+}
+
 @media screen and (max-width: 768px) {
-  .main-container {
+  .container {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr .5fr;
     justify-content: center;
