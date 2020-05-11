@@ -75,10 +75,11 @@ h2 {
 .container {
   margin: 0 auto;  
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr .5fr;
+  gap: 1rem;
+  align-items: center;  
   justify-content: center;
-  align-items: end;
   padding: 20px;
   background: #fffffe;
   border: 3px solid #864c0a;
@@ -173,19 +174,4 @@ small {
   background: rgba(0, 0, 0, 0.75);
   font-size: 14px;
   text-align: center;
-}
-
-
-@media screen and (max-width: 768px) {
-  .container {
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr .5fr;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
 }
