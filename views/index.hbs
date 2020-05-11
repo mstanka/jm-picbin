@@ -7,12 +7,11 @@
 
     <div class="container-upload"> 
       <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
-        <div>
-          <input id="file-picker" class="file-upload__input" type="file" name="image">
-          <button id="file-btn" class="btn btn-secondary">Choose file(s) to upload</button>
-          <span class="file-upload__label"></span>
-        </div>
-        <button class="btn btn-primary" type="submit">Upload file(s)</button>
+        <div class="drop-zone">
+          <span class="drop-zone__prompt">Drop file here or click to upload</span>
+          <input type="file" name="image" class="drop-zone__input" id="file-picker">
+        </div>      
+        <button class="btn btn-primary" id="submit-btn" type="submit">Upload file</button>
         <p id="message" class="file-upload__label">{{message}}</p>
       </form>
     </div>    
@@ -30,36 +29,97 @@
   document.addEventListener('DOMContentLoaded', () => {
 
     const message = document.getElementById('message');
-    const picker = document.getElementById('file-picker'); // input
-    const button = document.getElementById('file-btn');
+    const picker = document.getElementById('file-picker');
+    const button = document.getElementById('submit-btn');
     const label = button.parentElement.querySelector('.file-upload__label');
-    const defaultLabelText = 'No file(s) selected';
+    const defaultLabelText = 'No file(s) selected';  
+    const dropZoneElement = picker.closest(".drop-zone");
+
+    dropZoneElement.addEventListener("click", (e) => {
+      picker.click();
+    });
+
+    picker.addEventListener("change", (e) => {
+      if (picker.files.length) {
+        updateThumbnail(dropZoneElement, picker.files[0]);
+      }
+    });
+
+    // add class 'drop-zone--over' when file is over the dragzone
+    dropZoneElement.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZoneElement.classList.add("drop-zone--over");
+    });
+
+    // remove class 'drop-zone--over' when file is not over the dragzone
+    ["dragleave", "dragend"].forEach((type) => {
+      dropZoneElement.addEventListener(type, (e) => {
+        dropZoneElement.classList.remove("drop-zone--over");
+      });
+    });
+
+    // drop the file 
+    dropZoneElement.addEventListener("drop", (e) => {
+      e.preventDefault();
+      e.stopPropagation()
+
+      if (e.dataTransfer.files.length) {
+        picker.files = e.dataTransfer.files;
+        updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+      }
+
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
 
     document.getElementById('upload-form').addEventListener('submit', (e) => {
 
-      message.innerText = '';      
+      message.innerText = '';
 
-      if(!picker.files.length) {
+      if (!picker.files.length) {
         message.innerText = 'Please select an image to upload.';
         e.preventDefault();
         return false;
       }
-    });
+    });    
+    
+    /**
+     * Updates the thumbnail on a drop zone element.
+     *
+     * @param {HTMLElement} dropZoneElement
+     * @param {File} file
+     */
+     
 
-    label.textContent = defaultLabelText;
-    label.title = defaultLabelText;
+    // update thumbnail
+    function updateThumbnail(dropZoneElement, file) {
+      let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
 
-    button.addEventListener('click', () => {
-      picker.click();
-    });
+      // First time - remove the prompt
+      if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+        dropZoneElement.querySelector(".drop-zone__prompt").remove();
+      }
 
-    picker.addEventListener('change', () => {
-      console.log(picker.files);
-      const filenameList = Array.from(picker.files).map(file => {
-        return file.name;
-      });
-      label.textContent = filenameList.join(', ') || defaultLabelText;
-      label.title = label.textContent;
-    });
+      // First time - there is no thumbnail element, so lets create it
+      if (!thumbnailElement) {
+        thumbnailElement = document.createElement("div");
+        thumbnailElement.classList.add("drop-zone__thumb");
+        dropZoneElement.appendChild(thumbnailElement);
+      }
+
+      thumbnailElement.dataset.label = file.name;
+
+      // Show thumbnail for image files
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+        };
+      } else {
+        thumbnailElement.style.backgroundImage = null;
+      }
+    }
+       
   });
 </script>
