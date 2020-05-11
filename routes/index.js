@@ -19,6 +19,7 @@ const containerName2 = 'images';
 const ONE_MEGABYTE = 1024 * 1024;
 const uploadOptions = { bufferSize: 4 * ONE_MEGABYTE, maxBuffers: 20 };
 const ONE_MINUTE = 60 * 1000;
+const Str = require('@supercharge/strings')
 
 const sharedKeyCredential = new StorageSharedKeyCredential(
   process.env.AZURE_STORAGE_ACCOUNT_NAME,
@@ -33,7 +34,7 @@ const blobServiceClient = new BlobServiceClient(
 const getBlobName = originalName => {
   // Use a random number to generate a unique file name, 
   // removing "0." from the start of the string.
-  const identifier = Math.random().toString().replace(/0\./, '');
+  const identifier = Str.random(5)  
   return `${identifier}`;
 };
 
