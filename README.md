@@ -4,4 +4,6 @@
 3. push to your fork
 3. submit pull request
 
-blablalalal
+
+## How to upload an image file from a command line
+http -v -f POST pic.ninja image@./myfile.jpeg
