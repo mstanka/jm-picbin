@@ -1,29 +1,30 @@
-<div class="wrapper">
-  <div class="container">
-    <div>
-      <h1>Pic Ninja</h1>
-      <img src="/img/undraw_image_focus.svg" alt="Image" class="main-image">
-    </div>   
-
-    <div class="container-upload"> 
-      <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
-        <div class="drop-zone">
-          <span class="drop-zone__prompt">Drop file here or click to upload</span>
-          <input type="file" name="image" class="drop-zone__input" id="file-picker">
-        </div>      
-        <button class="btn btn-primary" id="submit-btn" type="submit">Upload file</button>
-        <p id="message" class="file-upload__label">{{message}}</p>
-      </form>
-    </div>    
+<div class="container">
+  <div>
+    <h1>Pic Ninja</h1>
+    <div class="main-image">
+      <img src="/img/undraw_image_focus.svg" alt="Pic Image">
+    </div>     
+  </div>   
+  <div class="container-upload"> 
+    <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
+      <div class="drop-zone">
+        <span class="drop-zone__prompt">Drop file here or click to upload</span>
+        <input type="file" name="image" class="drop-zone__input" id="file-picker">
+      </div>      
+      <button class="btn btn-primary" id="submit-btn" type="submit">Upload file</button>
+      <p id="message" class="file-upload__label">{{message}}</p>
+    </form>
+  </div>    
 
     {{!-- <h2>Generated Thumbnails</h2> --}}
     {{#each this.thumbnails}}
     <img src="https://{{../accountName}}.blob.core.windows.net/{{../containerName}}/{{name}}">
     {{/each}}
-  </div>  
-    <small>&copy Pic Ninja, v03</small>  
-</div>
-
+  </div> 
+  <div class="small">
+    <small>&copy Pic Ninja, v04</small>
+  </div> 
+  
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
