@@ -61,10 +61,7 @@ h2 {
 
 .container {
   margin: 2rem auto;  
-  max-width: 1024px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  max-width: 900px;
   padding: 2rem;
   background: #fffffe;
   border: .3rem solid #864c0a;
@@ -130,4 +127,17 @@ h2 {
   padding: 1rem 0;
   text-align: center;
   color: #3f3d56;
+}
+
+@media screen and (min-width: 1025px) {
+  .main-image {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+  }
+
+  .container-upload {
+    max-width: 500px;
+    margin: 0 auto;
+  }
 }
