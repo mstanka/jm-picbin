@@ -38,6 +38,12 @@ const getBlobName = originalName => {
   return `${identifier}`;
 };
 
+router.get('/\\S+', async (req, res) => {
+  const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
+  console.log('redirecting to ', redirectTo)
+  res.redirect(redirectTo)
+});
+
 router.get('/', async (req, res, next) => {
 
   let viewData;
@@ -60,6 +66,7 @@ router.get('/', async (req, res, next) => {
     if (listBlobsResponse.segment.blobItems.length) {
       viewData.thumbnails = listBlobsResponse.segment.blobItems;
     }
+    console.log('test')
   } catch (err) {
     viewData = {
       title: 'Error',
@@ -79,7 +86,8 @@ router.post('/', uploadStrategy, async (req, res) => {
   const containerClient = blobServiceClient.getContainerClient(containerName2);
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
   const imageUrl = blockBlobClient.url;
-  const sourceIpAddress = req.ip;
+  const shortUrl = req.headers.origin + '/' + blobName
+  const sourceIpAddress = req.socket.localAddress
 
   try {
     await blockBlobClient.uploadStream(stream,
@@ -88,8 +96,8 @@ router.post('/', uploadStrategy, async (req, res) => {
         blobHTTPHeaders: { blobContentType: "image/jpeg" }, 
         metadata: {souceIp: sourceIpAddress}
       }
-      );
-    res.render('success', { message: 'Click on the link to view it. ', imageUrl: imageUrl });
+    );
+    res.render('success', { message: 'Click on the link to view it. ', imageUrl: shortUrl });
   } catch (err) {
     res.render('error', { message: err.message });
   }
