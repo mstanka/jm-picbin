@@ -9,7 +9,7 @@
     <form id="upload-form" action="/" method="POST" enctype="multipart/form-data">
       <div class="drop-zone">
         <span class="drop-zone__prompt">Drop file here or click to upload</span>
-        <input type="file" name="image" class="drop-zone__input" id="file-picker">
+        <input type="file" name="image" class="drop-zone__input" id="file-picker" accept="image/*">
       </div>      
       <button class="btn btn-primary" id="submit-btn" type="submit">Upload file</button>
       <p id="message" class="file-upload__label">{{message}}</p>

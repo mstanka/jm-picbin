@@ -79,11 +79,16 @@ router.post('/', uploadStrategy, async (req, res) => {
   const containerClient = blobServiceClient.getContainerClient(containerName2);
   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
   const imageUrl = blockBlobClient.url;
+  const sourceIpAddress = req.ip;
 
   try {
     await blockBlobClient.uploadStream(stream,
       uploadOptions.bufferSize, uploadOptions.maxBuffers,
-      { blobHTTPHeaders: { blobContentType: "image/jpeg" } });
+      { 
+        blobHTTPHeaders: { blobContentType: "image/jpeg" }, 
+        metadata: {souceIp: sourceIpAddress}
+      }
+      );
     res.render('success', { message: 'Click on the link to view it. ', imageUrl: imageUrl });
   } catch (err) {
     res.render('error', { message: err.message });
