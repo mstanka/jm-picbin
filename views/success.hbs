@@ -1,13 +1,39 @@
 <div class="container">
 
-  <h1>Your image was uploaded!</h1>
+  <h2>Your image was uploaded!</h2>
 
   <p>{{message}}
-    <div>
-      <a href="{{imageUrl}}">{{imageUrl}}</a>
-    </div>    
+    <div class="imageLink">     
+      <textarea name="image-url" type="text" id="image-url" class="image-link btn" rows="3">{{imageUrl}}</textarea>
+    </div>  
+    <div class="tooltip">
+    <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-secondary"><span class="tooltiptext" id="tooltip"></span>Copy Link</button>  
   </p>
   <p class="return">
     <a href="/">Return home to view thumbnails</a>
   </p>  
 </div>
+
+<script>
+  
+  function copyTextFunction() {
+    let copyText = document.getElementById("image-url");
+    copyText.value = copyText.textContent;
+
+    copyText.focus();
+    copyText.select();
+
+    copyText.setSelectionRange(0, 99999); /*for mobile devices*/
+
+    document.execCommand("copy");
+
+    let tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = "Copied: " + copyText.value;
+  }
+
+  function outFunc() {
+    var tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }
+
+</script>
