@@ -4,13 +4,16 @@
 
   <p>{{message}}
     <div class="imageLink">     
-      <textarea name="image-url" type="text" id="image-url" class="image-link btn" rows="3">{{imageUrl}}</textarea>
+      <textarea name="image-url" type="text" id="image-url" class="image-link btn" rows="3">
+        {{imageUrl}}
+      </textarea>
+      go to image: <a href="{{imageUrl}}">{{imageUrl}}</a>
     </div>  
     <div class="tooltip">
     <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-secondary"><span class="tooltiptext" id="tooltip"></span>Copy Link</button>  
   </p>
   <p class="return">
-    <a href="/">Return home to view thumbnails</a>
+    <a href="/">Return home</a>
   </p>  
 </div>
 
