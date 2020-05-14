@@ -39,9 +39,19 @@ const getBlobName = originalName => {
 };
 
 router.get('/\\S+', async (req, res) => {
+  let viewData;
   const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
-  console.log('redirecting to ', redirectTo)
-  res.redirect(redirectTo)
+
+  viewData = {
+    title: 'Image',
+    viewName: 'image',
+    imageUrl: redirectTo
+  };
+
+  //console.log('redirecting to ', redirectTo)
+  //res.redirect(m)
+  
+  res.render(viewData.viewName, viewData);
 });
 
 router.get('/', async (req, res, next) => {
@@ -97,7 +107,7 @@ router.post('/', uploadStrategy, async (req, res) => {
         metadata: {souceIp: sourceIpAddress}
       }
     );
-    res.render('success', { imageUrl: shortUrl });
+    res.render('success', { message: 'Click on the link to view it. ', imageUrl: shortUrl });
   } catch (err) {
     res.render('error', { message: err.message });
   }
