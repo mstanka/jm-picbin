@@ -60,6 +60,10 @@ h2 {
   color: #fffffe; 
 }
 
+.btn-primary a {
+  color: #fffffe;
+}
+
 .btn-primary:hover {
   background-color: #3f3d56;
   color: #fffffe;
@@ -88,7 +92,7 @@ h2 {
   margin-bottom: 4rem;
 }
 
-.main-image img {
+img {
   width: 100%;
 }
 
@@ -183,7 +187,7 @@ h2 {
   padding: 5px;
   position: absolute;
   z-index: 1;
-  bottom: 150%;
+  bottom: 200%;
   left: 50%;
   margin-left: -75px;
   opacity: 0;

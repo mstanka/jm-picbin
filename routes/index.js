@@ -107,7 +107,7 @@ router.post('/', uploadStrategy, async (req, res) => {
         metadata: {souceIp: sourceIpAddress}
       }
     );
-    res.render('success', { message: 'Click on the link to view it. ', imageUrl: shortUrl });
+    res.render('success', { imageUrl: shortUrl });
   } catch (err) {
     res.render('error', { message: err.message });
   }
