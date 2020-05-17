@@ -41,11 +41,13 @@ const getBlobName = originalName => {
 router.get('/\\S+', async (req, res) => {
   let viewData;
   const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
+  shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
 
   viewData = {
     title: 'Image',
     viewName: 'image',
-    imageUrl: redirectTo
+    imageUrl: redirectTo,
+    shortImageUrl: shortUrl
   };
 
   //console.log('redirecting to ', redirectTo)
