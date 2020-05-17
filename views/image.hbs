@@ -1,9 +1,41 @@
 <div class="container">
-
+  <h2>Your image was uploaded!</h2>
   <img src="{{imageUrl}}">
-  <p>this is a title</p>
-  <p>this is a description</p>
+  <div class="imageLink">
+    <input type="text" name="image-url" type="text" id="image-url" class="image-link btn" value="{{shortImageUrl}}">
+  </div>
+  {{!-- <p>this is a title</p> --}}
+  {{!-- <p>this is a description</p> --}}
+  <div class="tooltip">
+    <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-primary">
+      <span class="tooltiptext" id="tooltip">Copy to clipboard</span>
+      Copy Link
+    </button>
+  </div>
   <p class="return">
     <a href="/">Return home</a>
   </p>
 </div>
+
+<script>
+
+  function copyTextFunction() {
+    let copyText = document.getElementById("image-url");
+
+    copyText.focus();
+    copyText.select();
+
+    copyText.setSelectionRange(0, 99999); /*for mobile devices*/
+
+    document.execCommand("copy");
+
+    let tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = "Copied: " + copyText.value;
+  }
+
+  function outFunc() {
+    var tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }
+
+</script>
