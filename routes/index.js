@@ -38,24 +38,6 @@ const getBlobName = originalName => {
   return `${identifier}`;
 };
 
-router.get('/\\S+', async (req, res) => {
-  let viewData;
-  const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
-  shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
-
-  viewData = {
-    title: 'Image',
-    viewName: 'image',
-    imageUrl: redirectTo,
-    shortImageUrl: shortUrl
-  };
-
-  //console.log('redirecting to ', redirectTo)
-  //res.redirect(m)
-  
-  res.render(viewData.viewName, viewData);
-});
-
 router.get('/', async (req, res, next) => {
 
   let viewData;
@@ -90,6 +72,60 @@ router.get('/', async (req, res, next) => {
   } finally {
     res.render(viewData.viewName, viewData);
   }
+});
+
+router.get('/view', async (req, res, next) => {
+
+  let viewData;
+
+  try {
+    const containerClient = blobServiceClient.getContainerClient('img');
+    const listBlobsResponse = await containerClient.listBlobFlatSegment();
+
+    for await (const blob of listBlobsResponse.segment.blobItems) {
+      console.log(`Blob: ${blob.name}`);
+    }
+
+    viewData = {
+      title: 'Home',
+      viewName: 'view',
+      accountName: process.env.AZURE_STORAGE_ACCOUNT_NAME,
+      containerName: 'img'
+    };
+
+    if (listBlobsResponse.segment.blobItems.length) {
+      viewData.thumbnails = listBlobsResponse.segment.blobItems;
+    }
+    console.log('test')
+  } catch (err) {
+    viewData = {
+      title: 'Error',
+      viewName: 'error',
+      message: 'There was an error contacting the blob storage container.',
+      error: err
+    };
+    res.status(500);
+  } finally {
+    res.render(viewData.viewName, viewData);
+  }
+});
+
+router.get('/\\S+', async (req, res) => {
+  let viewData;
+  const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
+  shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
+
+  viewData = {
+    title: 'Image',
+    viewName: 'image',
+    imageUrl: redirectTo,
+    shortImageUrl: shortUrl
+  };
+
+  //console.log('redirecting to ', redirectTo)
+  //res.redirect(m)
+  
+  res.render(viewData.viewName, viewData);
 });
 
 router.post('/', uploadStrategy, async (req, res) => {

@@ -1,0 +1,12 @@
+  <h2>Uploaded images</h2>
+  {{#each this.thumbnails}}
+  <div style="display: inline-block;">
+    <img src="http://picbin-resize-url.azurewebsites.net/{{../containerName}}/{{name}}?format=png&process=always&maxwidth=100">
+  </div>
+  {{/each}}
+
+
+
+<div class="small">
+  <small>&copy Pic Ninja, v04</small>
+</div>
