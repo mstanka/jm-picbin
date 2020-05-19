@@ -210,6 +210,16 @@ img {
   opacity: 1;
 }
 
+.uploaded-box {
+  max-width: 90rem;  
+}
+
+.uploaded-img {
+  width: 100%;
+  height: 40%;
+  object-fit: scale-down;
+}
+
 
 /**Media queries**/
 
