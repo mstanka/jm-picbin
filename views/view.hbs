@@ -1,7 +1,9 @@
   <h2>Uploaded images</h2>
   {{#each this.thumbnails}}
   <div style="display: inline-block;">
-    <img src="http://picbin-resize-url.azurewebsites.net/{{../containerName}}/{{name}}?format=png&process=always&maxwidth=100">
+    <a href="http://pic.ninja/{{name}}">
+      <img src="http://picbin-resize-url.azurewebsites.net/{{../containerName}}/{{name}}?format=jpg&process=always&maxwidth=100">
+    </a>
   </div>
   {{/each}}
 
