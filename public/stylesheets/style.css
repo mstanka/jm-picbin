@@ -217,7 +217,7 @@ img {
 }
 
 .uploaded-box {
-  max-width: 90rem; 
+  max-width: 90rem;  
 }
 
 .uploaded-img {
@@ -225,6 +225,8 @@ img {
   object-fit: scale-down;
   max-block-size: fit-content;
   max-height: -webkit-fill-available;
+  display: inline-block;
+  margin: 0 auto;
 }
 
 
