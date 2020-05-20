@@ -20,10 +20,14 @@
 
   <section class="section__options">
     <h3>Choose additional adjustements to your image:</h3>
-    <form id="form-options" action="" method="POST">
+    <form id="form-options">
      <div class="options__simple">
+        <div>
+          <input type="radio" name="simple" value="original" id="original" checked="true">
+          <label for="original">Original</label>
+        </div>
         <div>      
-          <input type="radio" name="simple" value="grayscale" id="grayscale" checked="checked">
+          <input type="radio" name="simple" value="grayscale" id="grayscale">
           <label for="grayscale">Grayscale</label>
         </div>
         <div>      
@@ -35,7 +39,7 @@
           <label for="invert">Invert</label>
         </div>
       </div> 
-      <button type="submit" class="btn btn-primary" id="adjust-btn">Show adjusted image</button>
+      <button onclick="adjustImage()" type="button" class="btn btn-primary" id="adjust-btn">Adjust image</button>
     </form>    
   </section>  
   
@@ -65,27 +69,37 @@
       tooltip.innerHTML = "Copy to clipboard";
     }
  
-  const form = document.getElementById('form-options');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
+  function adjustImage() {
+    const originalOption = document.getElementById('original');
     const grayscaleOption = document.getElementById('grayscale');
     const sepiaOption = document.getElementById('sepia');
     const invertOption = document.getElementById('invert');
     const uploadedImg = document.querySelector('.uploaded-img');
-    
-    if (grayscaleOption.checked === "checked") {
-      uploadedImg.url() = 'src' + '&s.grayscale=true';
+    let imageSrc = "{{imageUrl}}?format=jpg&process=always&maxwidth=900";
+
+    console.log('uploadedImg ' + imageSrc);
+
+    if (originalOption.checked) {
+      uploadedImg.setAttribute('src', imageSrc);
+      console.log('btn orig');
     }
 
-    if (sepiaOption.checked === "checked") {
-      uploadedImg.url() = 'src' + '&s.sepia=true';
+    if (grayscaleOption.checked) {
+      uploadedImg.setAttribute('src', imageSrc + '&s.grayscale=true');
+      console.log('btn grey');
     }
 
-    if (invertOption.checked === "checked") {
-      uploadedImg.url() = 'src' + '&s.invert=true';
-    } 
-  });
+    if (sepiaOption.checked) {
+      uploadedImg.setAttribute('src', imageSrc + '&s.sepia=true');
+      console.log('btn sepia');
+    }
+
+    if (invertOption.checked) {
+      uploadedImg.setAttribute('src', imageSrc + '&s.invert=true');
+      console.log('btn invert');
+    }
+
+    console.log('uploadedImg ' + uploadedImg.src);
+  } 
 
 </script>
