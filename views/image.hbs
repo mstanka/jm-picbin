@@ -1,43 +1,90 @@
 <div class="container">
-  <h2>Your image was uploaded!</h2>
-    <div class="uploaded-box">
+  <section class="section__uploaded">
+    <h2>Your image was uploaded!</h2>
+    <div class="uploaded-box">     
       <img src="{{imageUrl}}?format=jpg&process=always&maxwidth=900" class="uploaded-img">
+    </div>
+    <div class="imageLink">
+      <input type="text" name="image-url" type="text" id="image-url" class="image-link btn" value="{{shortImageUrl}}">
+    </div>
+    {{!-- <p>this is a title</p> --}}
+    {{!-- <p>this is a description</p> --}}
+    <div class="tooltip">
+      <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-primary">
+        <span class="tooltiptext" id="tooltip">Copy to clipboard</span>
+        Copy Link
+      </button>
+    </div>
+  </section>
+  
+
+  <section class="section__options">
+    <h3>Choose additional adjustements to your image:</h3>
+    <form class="options__simple" action="" method="POST">
+      <div>      
+        <input type="radio" name="simple" value="grayscale" id="grayscale" checked="checked">
+        <label for="grayscale">Grayscale</label>
       </div>
-  <div class="imageLink">
-    <input type="text" name="image-url" type="text" id="image-url" class="image-link btn" value="{{shortImageUrl}}">
-  </div>
-  {{!-- <p>this is a title</p> --}}
-  {{!-- <p>this is a description</p> --}}
-  <div class="tooltip">
-    <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-primary">
-      <span class="tooltiptext" id="tooltip">Copy to clipboard</span>
-      Copy Link
-    </button>
-  </div>
+      <div>      
+        <input type="radio" name="simple" value="sepia" id="sepia">
+        <label for="sepia">Sepia</label>
+      </div>
+      <div>      
+        <input type="radio" name="simple" value="invert" id="invert">
+        <label for="invert">Invert</label>
+      </div>     
+    </form> 
+    <button type="submit" class="btn btn-primary" id="adjust-btn">Show adjusted image</button>
+  </section>  
+  
   <p class="return">
-    <a href="/">Return home</a>
+    <a href="/">Upload new image</a>
   </p>
 </div>
 
 <script>
 
-  function copyTextFunction() {
-    let copyText = document.getElementById("image-url");
+  document.addEventListener('DOMContentLoaded', () => {
+    
+    function copyTextFunction() {
+      let copyText = document.getElementById("image-url");
 
-    copyText.focus();
-    copyText.select();
+      copyText.focus();
+      copyText.select();
 
-    copyText.setSelectionRange(0, 99999); /*for mobile devices*/
+      copyText.setSelectionRange(0, 99999); /*for mobile devices*/
 
-    document.execCommand("copy");
+      document.execCommand("copy");
 
-    let tooltip = document.getElementById("tooltip");
-    tooltip.innerHTML = "Copied: " + copyText.value;
-  }
+      let tooltip = document.getElementById("tooltip");
+      tooltip.innerHTML = "Copied: " + copyText.value;
+    }
 
-  function outFunc() {
-    var tooltip = document.getElementById("tooltip");
-    tooltip.innerHTML = "Copy to clipboard";
-  }
+    function outFunc() {
+      var tooltip = document.getElementById("tooltip");
+      tooltip.innerHTML = "Copy to clipboard";
+    }
+
+    document.getElementById('adjust-btn').addEventListener('click', (e) => {
+      e.preventDefault();
+
+      const grayscaleOption = document.getElementById('grayscale');
+      const sepiaOption = document.getElementById('sepia');
+      const invertOption = document.getElementById('invert');
+      const uploadedImg = document.querySelector('.uploaded-img');
+      
+      if (grayscaleOption.checked === "checked") {
+        uploadedImg.url = 'src' + '&s.grayscale=true';
+      }
+
+      if (sepiaOption.checked === "checked") {
+        uploadedImg.url = 'src' + '&s.sepia=true';
+      }
+
+      if (invertOption.checked === "checked") {
+        uploadedImg.url = 'src' + '&s.invert=true';
+      } 
+    });
+  });
 
 </script>

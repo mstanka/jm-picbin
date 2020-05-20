@@ -41,6 +41,12 @@ h2 {
   text-align: center;
 }
 
+h3 {
+  color: #3f3d56;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
 .btn {
   display: block;
   border-radius: 1rem;
@@ -211,13 +217,36 @@ img {
 }
 
 .uploaded-box {
-  max-width: 90rem;  
+  max-width: 90rem; 
 }
 
 .uploaded-img {
-  width: 100%;
-  height: 40%;
+  max-width: fit-content;
   object-fit: scale-down;
+  max-block-size: fit-content;
+  max-height: -webkit-fill-available;
+}
+
+
+/***Section options***/
+.section__options {
+  margin: 6rem 0;
+}
+
+.options__simple {
+  border-radius: 1rem;
+  border: .2rem solid #0f0e17; 
+  width: 60%;
+  padding: 1rem 3rem 1rem 2rem;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-size: 1.2rem;
+  background-color: #fffffe;
+  color: #3f3d56;
+}
+
+.options__simple input {
+  margin-right: 1rem;
 }
 
 
