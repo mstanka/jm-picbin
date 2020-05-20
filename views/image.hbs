@@ -20,21 +20,23 @@
 
   <section class="section__options">
     <h3>Choose additional adjustements to your image:</h3>
-    <form class="options__simple" action="" method="POST">
-      <div>      
-        <input type="radio" name="simple" value="grayscale" id="grayscale" checked="checked">
-        <label for="grayscale">Grayscale</label>
-      </div>
-      <div>      
-        <input type="radio" name="simple" value="sepia" id="sepia">
-        <label for="sepia">Sepia</label>
-      </div>
-      <div>      
-        <input type="radio" name="simple" value="invert" id="invert">
-        <label for="invert">Invert</label>
-      </div>     
-    </form> 
-    <button type="submit" class="btn btn-primary" id="adjust-btn">Show adjusted image</button>
+    <form id="form-options" action="" method="POST">
+     <div class="options__simple">
+        <div>      
+          <input type="radio" name="simple" value="grayscale" id="grayscale" checked="checked">
+          <label for="grayscale">Grayscale</label>
+        </div>
+        <div>      
+          <input type="radio" name="simple" value="sepia" id="sepia">
+          <label for="sepia">Sepia</label>
+        </div>
+        <div>      
+          <input type="radio" name="simple" value="invert" id="invert">
+          <label for="invert">Invert</label>
+        </div>
+      </div> 
+      <button type="submit" class="btn btn-primary" id="adjust-btn">Show adjusted image</button>
+    </form>    
   </section>  
   
   <p class="return">
@@ -44,47 +46,46 @@
 
 <script>
 
-  document.addEventListener('DOMContentLoaded', () => {
-    
-    function copyTextFunction() {
-      let copyText = document.getElementById("image-url");
+  function copyTextFunction() {
+    let copyText = document.getElementById("image-url");
 
-      copyText.focus();
-      copyText.select();
+    copyText.focus();
+    copyText.select();
 
-      copyText.setSelectionRange(0, 99999); /*for mobile devices*/
+    copyText.setSelectionRange(0, 99999); /*for mobile devices*/
 
-      document.execCommand("copy");
+    document.execCommand("copy");
 
-      let tooltip = document.getElementById("tooltip");
-      tooltip.innerHTML = "Copied: " + copyText.value;
-    }
+    let tooltip = document.getElementById("tooltip");
+    tooltip.innerHTML = "Copied: " + copyText.value;
+  }
 
-    function outFunc() {
+  function outFunc() {
       var tooltip = document.getElementById("tooltip");
       tooltip.innerHTML = "Copy to clipboard";
     }
+ 
+  const form = document.getElementById('form-options');
 
-    document.getElementById('adjust-btn').addEventListener('click', (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-      const grayscaleOption = document.getElementById('grayscale');
-      const sepiaOption = document.getElementById('sepia');
-      const invertOption = document.getElementById('invert');
-      const uploadedImg = document.querySelector('.uploaded-img');
-      
-      if (grayscaleOption.checked === "checked") {
-        uploadedImg.url = 'src' + '&s.grayscale=true';
-      }
+    const grayscaleOption = document.getElementById('grayscale');
+    const sepiaOption = document.getElementById('sepia');
+    const invertOption = document.getElementById('invert');
+    const uploadedImg = document.querySelector('.uploaded-img');
+    
+    if (grayscaleOption.checked === "checked") {
+      uploadedImg.url() = 'src' + '&s.grayscale=true';
+    }
 
-      if (sepiaOption.checked === "checked") {
-        uploadedImg.url = 'src' + '&s.sepia=true';
-      }
+    if (sepiaOption.checked === "checked") {
+      uploadedImg.url() = 'src' + '&s.sepia=true';
+    }
 
-      if (invertOption.checked === "checked") {
-        uploadedImg.url = 'src' + '&s.invert=true';
-      } 
-    });
+    if (invertOption.checked === "checked") {
+      uploadedImg.url() = 'src' + '&s.invert=true';
+    } 
   });
 
 </script>
