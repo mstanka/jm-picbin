@@ -1,19 +1,41 @@
 <div class="container">
   <section class="section__uploaded">
-    <h2>Your image was uploaded!</h2>
+    <h3>Your uploaded image!</h3>
     <div class="uploaded-box">     
       <img src="{{imageUrl}}?format=jpg&process=always&maxwidth=900" class="uploaded-img">
     </div>
-    <div class="imageLink">
-      <input type="text" name="image-url" type="text" id="image-url" class="image-link btn" value="{{shortImageUrl}}">
+    <div class="imageLink" >
+      <h5>SHARE THIS LINK</h5>
+      <input type="text" name="image-url" type="text" class="image-link btn" id="copy-public-field"
+        value="{{shortImageUrl}}"
+        contenteditable="false" readonly="">
     </div>
     {{!-- <p>this is a title</p> --}}
     {{!-- <p>this is a description</p> --}}
     <div class="tooltip">
-      <button onclick="copyTextFunction()" onmouseout="outFunc()" class="btn btn-primary">
-        <span class="tooltiptext" id="tooltip">Copy to clipboard</span>
+      <button onclick="$('#copy-public-field').focus()"  class="btn btn-primary">
         Copy Link
       </button>
+      <div class="copied-message1" style="display: none;">
+          Link copied!
+	      </div>
+    </div>
+
+    <div class="imageLink">
+      <h5>YOUR PRIVATE LINK</h5>
+      <input type="text" name="image-url" type="text" class="image-link btn" id="copy-private-field"
+        value="{{privateImageUrl}}"
+        contenteditable="false" readonly="">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" id="copy-private-button"
+          onclick="$('#copy-private-field').focus()">
+          Copy Link
+        </button>
+        <div class="copied-message2" style="display: none;">
+          Link copied!
+	      </div>
+      </div>
+
     </div>
   </section>
   
@@ -48,7 +70,50 @@
   </p>
 </div>
 
-<script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>  
+
+$('#copy-private-field').focus(function() {
+	$(this).prop("readonly", false);
+	$(this).prop("contenteditable", true);
+	var range = document.createRange();
+	var s = window.getSelection();
+
+	s.removeAllRanges();
+	s.addRange(range);
+
+	this.setSelectionRange(0, 999999);
+
+	if (document.execCommand("copy")) {
+	  $(".copied-message2").show();
+
+	}
+	$(this).prop("readonly", true);
+	$(this).prop("contenteditable", false);
+
+});
+
+$('#copy-public-field').focus(function() {
+	$(this).prop("readonly", false);
+	$(this).prop("contenteditable", true);
+	var range = document.createRange();
+	var s = window.getSelection();
+
+	s.removeAllRanges();
+	s.addRange(range);
+
+	this.setSelectionRange(0, 999999);
+
+	if (document.execCommand("copy")) {
+	  $(".copied-message1").show();
+
+	}
+	$(this).prop("readonly", true);
+	$(this).prop("contenteditable", false);
+
+});
+
 
   function copyTextFunction() {
     let copyText = document.getElementById("image-url");

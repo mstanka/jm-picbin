@@ -106,15 +106,15 @@ router.get('/i/\\S+', async (req, res) => {
   //const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
   const path = req.path.split('/')[2]
   const imageUrl = `https://picbin-resize-url.azurewebsites.net/${containerName2}/${path}`
-  console.log(`req path ${req.path} path ${path} imageUrl ${imageUrl} originalUrl ${req.originalUrl}`);
-
-  shortUrl =  req.protocol + '://' + req.get('host') + "/" + path;
-
+  const publicImageUrl =  req.protocol + '://' + req.get('host') + "/" + path;
+  const privateImageUrl =  req.protocol + '://' + req.get('host') + "/i/" + path;
+  console.log(`priv ${privateImageUrl}`)
   viewData = {
     title: 'Pic Ninja Image',
     viewName: 'image',
     imageUrl: imageUrl,
-    shortImageUrl: shortUrl
+    shortImageUrl: publicImageUrl,
+    privateImageUrl: privateImageUrl
   };
   
   res.render(viewData.viewName, viewData);
