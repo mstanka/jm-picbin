@@ -44,24 +44,12 @@ router.get('/', async (req, res, next) => {
   let viewData;
 
   try {
-    const containerClient = blobServiceClient.getContainerClient(containerName1);
-    const listBlobsResponse = await containerClient.listBlobFlatSegment();
-
-    for await (const blob of listBlobsResponse.segment.blobItems) {
-      console.log(`Blob: ${blob.name}`);
-    }
-
     viewData = {
       title: 'Pic Ninja',
       viewName: 'index',
       accountName: process.env.AZURE_STORAGE_ACCOUNT_NAME,
       containerName: containerName1
     };
-
-    if (listBlobsResponse.segment.blobItems.length) {
-      viewData.thumbnails = listBlobsResponse.segment.blobItems;
-    }
-    console.log('test')
   } catch (err) {
     viewData = {
       title: 'Error',
@@ -118,7 +106,9 @@ router.get('/i/\\S+', async (req, res) => {
   //const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
   const path = req.path.split('/')[2]
   const imageUrl = `https://picbin-resize-url.azurewebsites.net/${containerName2}/${path}`
-  shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
+  console.log(`req path ${req.path} path ${path} imageUrl ${imageUrl} originalUrl ${req.originalUrl}`);
+
+  shortUrl =  req.protocol + '://' + req.get('host') + "/" + path;
 
   viewData = {
     title: 'Pic Ninja Image',
