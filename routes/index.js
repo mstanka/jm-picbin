@@ -38,6 +38,7 @@ const getBlobName = originalName => {
   return `${identifier}`;
 };
 
+// home page
 router.get('/', async (req, res, next) => {
 
   let viewData;
@@ -51,7 +52,7 @@ router.get('/', async (req, res, next) => {
     }
 
     viewData = {
-      title: 'Home',
+      title: 'Pic Ninja',
       viewName: 'index',
       accountName: process.env.AZURE_STORAGE_ACCOUNT_NAME,
       containerName: containerName1
@@ -74,7 +75,8 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-router.get('/view', async (req, res, next) => {
+// adminview
+router.get('/adminview', async (req, res, next) => {
 
   let viewData;
 
@@ -87,8 +89,8 @@ router.get('/view', async (req, res, next) => {
     }
 
     viewData = {
-      title: 'Home',
-      viewName: 'view',
+      title: 'Pic Ninja Admin View',
+      viewName: 'adminview',
       accountName: process.env.AZURE_STORAGE_ACCOUNT_NAME,
       containerName: 'img'
     };
@@ -110,15 +112,34 @@ router.get('/view', async (req, res, next) => {
   }
 });
 
+// uploaded image view + adjustments
+router.get('/i/\\S+', async (req, res) => {
+  let viewData;
+  //const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
+  const path = req.path.split('/')[2]
+  const imageUrl = `https://picbin-resize-url.azurewebsites.net/${containerName2}/${path}`
+  shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
+
+  viewData = {
+    title: 'Pic Ninja Image',
+    viewName: 'image',
+    imageUrl: imageUrl,
+    shortImageUrl: shortUrl
+  };
+  
+  res.render(viewData.viewName, viewData);
+});
+
+
+// simple image view 
 router.get('/\\S+', async (req, res) => {
   let viewData;
-  const redirectTo =  `https://${process.env.AZURE_STORAGE_ACCOUNT_NAME}.blob.core.windows.net/${containerName2}` + req.path
   const imageUrl = `https://picbin-resize-url.azurewebsites.net/${containerName2}${req.path}`
   shortUrl =  req.protocol + '://' + req.get('host') + req.originalUrl;
 
   viewData = {
-    title: 'Image',
-    viewName: 'image',
+    title: 'Pic Ninja Image',
+    viewName: 'simple-view',
     imageUrl: imageUrl,
     shortImageUrl: shortUrl
   };
@@ -129,27 +150,28 @@ router.get('/\\S+', async (req, res) => {
   res.render(viewData.viewName, viewData);
 });
 
-router.post('/', uploadStrategy, async (req, res) => {
-  const blobName = getBlobName(req.file.originalname);
-  const stream = getStream(req.file.buffer);
-  const containerClient = blobServiceClient.getContainerClient(containerName2);
-  const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-  const imageUrl = blockBlobClient.url;
-  const shortUrl = req.headers.origin + '/' + blobName
-  const sourceIpAddress = req.socket.localAddress
 
-  try {
-    await blockBlobClient.uploadStream(stream,
-      uploadOptions.bufferSize, uploadOptions.maxBuffers,
-      { 
-        blobHTTPHeaders: { blobContentType: "image/jpeg" }, 
-        metadata: {souceIp: sourceIpAddress}
-      }
-    );
-    res.render('success', { imageUrl: shortUrl });
-  } catch (err) {
-    res.render('error', { message: err.message });
-  }
-});
+// router.post('/', uploadStrategy, async (req, res) => {
+//   const blobName = getBlobName(req.file.originalname);
+//   const stream = getStream(req.file.buffer);
+//   const containerClient = blobServiceClient.getContainerClient(containerName2);
+//   const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+//   const imageUrl = blockBlobClient.url;
+//   const shortUrl = req.headers.origin + '/' + blobName
+//   const sourceIpAddress = req.socket.localAddress
+
+//   try {
+//     await blockBlobClient.uploadStream(stream,
+//       uploadOptions.bufferSize, uploadOptions.maxBuffers,
+//       { 
+//         blobHTTPHeaders: { blobContentType: "image/jpeg" }, 
+//         metadata: {souceIp: sourceIpAddress}
+//       }
+//     );
+//     res.render('success', { imageUrl: shortUrl });
+//   } catch (err) {
+//     res.render('error', { message: err.message });
+//   }
+// });
 
 module.exports = router;
