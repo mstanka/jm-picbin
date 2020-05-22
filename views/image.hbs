@@ -130,57 +130,38 @@ $('#copy-public-field').focus(function() {
 
 });
 
+ 
+function adjustImage() {
+  const originalOption = document.getElementById('original');
+  const grayscaleOption = document.getElementById('grayscale');
+  const sepiaOption = document.getElementById('sepia');
+  const invertOption = document.getElementById('invert');
+  const uploadedImg = document.querySelector('.uploaded__img');
+  let imageSrc = "{{imageUrl}}?format=jpg&process=always&maxwidth=900";
 
-  function copyTextFunction() {
-    let copyText = document.getElementById("image-url");
+  console.log('uploadedImg ' + imageSrc);
 
-    copyText.focus();
-    copyText.select();
-
-    copyText.setSelectionRange(0, 99999); /*for mobile devices*/
-
-    document.execCommand("copy");
-
-    let tooltip = document.getElementById("tooltip");
-    tooltip.innerHTML = "Copied: " + copyText.value;
+  if (originalOption.checked) {
+    uploadedImg.setAttribute('src', imageSrc);
+    console.log('btn orig');
   }
 
-  function outFunc() {
-      var tooltip = document.getElementById("tooltip");
-      tooltip.innerHTML = "Copy to clipboard";
-    }
- 
-  function adjustImage() {
-    const originalOption = document.getElementById('original');
-    const grayscaleOption = document.getElementById('grayscale');
-    const sepiaOption = document.getElementById('sepia');
-    const invertOption = document.getElementById('invert');
-    const uploadedImg = document.querySelector('.uploaded-img');
-    let imageSrc = "{{imageUrl}}?format=jpg&process=always&maxwidth=900";
+  if (grayscaleOption.checked) {
+    uploadedImg.setAttribute('src', imageSrc + '&s.grayscale=true');
+    console.log('btn grey');
+  }
 
-    console.log('uploadedImg ' + imageSrc);
+  if (sepiaOption.checked) {
+    uploadedImg.setAttribute('src', imageSrc + '&s.sepia=true');
+    console.log('btn sepia');
+  }
 
-    if (originalOption.checked) {
-      uploadedImg.setAttribute('src', imageSrc);
-      console.log('btn orig');
-    }
+  if (invertOption.checked) {
+    uploadedImg.setAttribute('src', imageSrc + '&s.invert=true');
+    console.log('btn invert');
+  }
 
-    if (grayscaleOption.checked) {
-      uploadedImg.setAttribute('src', imageSrc + '&s.grayscale=true');
-      console.log('btn grey');
-    }
-
-    if (sepiaOption.checked) {
-      uploadedImg.setAttribute('src', imageSrc + '&s.sepia=true');
-      console.log('btn sepia');
-    }
-
-    if (invertOption.checked) {
-      uploadedImg.setAttribute('src', imageSrc + '&s.invert=true');
-      console.log('btn invert');
-    }
-
-    console.log('uploadedImg ' + uploadedImg.src);
-  } 
+  console.log('uploadedImg ' + uploadedImg.src);
+} 
 
 </script>
