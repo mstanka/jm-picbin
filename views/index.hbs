@@ -1,11 +1,13 @@
 <div class="container">
   
-  <h1>Pic Ninja</h1>
-  <div class="main-image">
-    <img src="/img/undraw_image_focus.svg" alt="Pic Image">
-  </div>     
+  <section class="section__intro">
+    <h1>Pic Ninja</h1>
+    <div class="main__image">
+      <img src="/img/undraw_image_focus.svg" alt="Pic Image" class="main__image-img">
+    </div>
+  </section>      
  
-  <div class="container-upload"> 
+  <section class="section__upload"> 
     <form id="upload-form" action="https://picninja-upload.azurewebsites.net/api/files2" method="POST" enctype="multipart/form-data">
       <div class="drop-zone">
         <span class="drop-zone__prompt">Drop file here or click to upload</span>
@@ -14,11 +16,20 @@
       <button class="btn btn-primary" id="submit-btn" type="submit">Upload file</button>
       <p id="message" class="file-upload__label">{{message}}</p>
     </form>
-  </div>    
+  </section> 
 
-</div> 
-<div class="small">
-  <small>&copy Pic Ninja, v04</small>
+  <section class="section__about">
+    <h2 class="section__about-title">About Pic Ninja</h2>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit omnis, recusandae blanditiis soluta suscipit voluptatibus quo eos sunt tempore esse odio natus aut, excepturi repellat voluptates debitis voluptatum exercitationem molestias.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, atque.</p>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem sed voluptatum odit corporis fugiat facilis quidem atque magnam quia? Quas.</p>
+  </section> 
+
+  <section class="section__contact">
+    <a href="https://www.facebook.com/" aria-label="facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://twitter.com/" aria-label="twitter"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.instagram.com/" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+  </section> 
 </div> 
   
 

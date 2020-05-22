@@ -1,41 +1,37 @@
 <div class="container">
+
   <section class="section__uploaded">
+
     <h3>Your uploaded image!</h3>
-    <div class="uploaded-box">     
-      <img src="{{imageUrl}}?format=jpg&process=always&maxwidth=900" class="uploaded-img">
+    <div class="uploaded__box">     
+      <img src="{{imageUrl}}?format=jpg&process=always&maxwidth=900" class="uploaded__img">
     </div>
-    <div class="imageLink" >
-      <h5>SHARE THIS LINK</h5>
-      <input type="text" name="image-url" type="text" class="image-link btn" id="copy-public-field"
+
+    <div class="uploaded__link" >
+      <h4 class="uploaded__link-title">SHARE THIS LINK</h4>
+      <input type="text" name="image-url" type="text" class="uploaded__link-image btn" id="copy-public-field"
         value="{{shortImageUrl}}"
-        contenteditable="false" readonly="">
-    </div>
-    {{!-- <p>this is a title</p> --}}
-    {{!-- <p>this is a description</p> --}}
-    <div class="tooltip">
-      <button onclick="$('#copy-public-field').focus()"  class="btn btn-primary">
+        contenteditable="false" readonly="">    
+      <button onclick="$('#copy-public-field').focus()" class="uploaded__link-btn" type="button" >
         Copy Link
       </button>
-      <div class="copied-message1" style="display: none;">
-          Link copied!
-	      </div>
+      <div class="copied-message1">
+        Link copied!
+      </div>
     </div>
 
-    <div class="imageLink">
-      <h5>YOUR PRIVATE LINK</h5>
-      <input type="text" name="image-url" type="text" class="image-link btn" id="copy-private-field"
+    <div class="uploaded__link">
+      <h4 class="uploaded__link-title">YOUR PRIVATE LINK</h4>
+      <input type="text" name="image-url" type="text" class="uploaded__link-image btn" id="copy-private-field"
         value="{{privateImageUrl}}"
-        contenteditable="false" readonly="">
-      <div class="input-group-append">
-        <button class="btn btn-primary" type="button" id="copy-private-button"
-          onclick="$('#copy-private-field').focus()">
-          Copy Link
-        </button>
-        <div class="copied-message2" style="display: none;">
-          Link copied!
-	      </div>
-      </div>
-
+        contenteditable="false" readonly="">      
+      <button class="uploaded__link-btn" type="button" id="copy-private-button"
+        onclick="$('#copy-private-field').focus()">
+        Copy Link
+      </button>
+      <div class="copied-message2">
+        Link copied!
+      </div>    
     </div>
   </section>
   
@@ -61,13 +57,33 @@
           <label for="invert">Invert</label>
         </div>
       </div> 
-      <button onclick="adjustImage()" type="button" class="btn btn-primary" id="adjust-btn">Adjust image</button>
+      <button onclick="adjustImage()" type="button" class="btn btn-primary options__btn" id="adjust-btn">Adjust image</button>
     </form>    
-  </section>  
+  </section>
+
+  <section class="section__metadata">
+    <h3>Information about your image:</h3>
+    <ul>
+      <li class="section__metadata-item">Title: {{Title}}</li>
+      <li class="section__metadata-item">Labels: {{Labels}}</li>
+      <li class="section__metadata-item">Date: {{Date}}</li>
+      <li class="section__metadata-item">Width: {{Width}}</li>
+      <li class="section__metadata-item">Height: {{Height}}</li>
+      <li class="section__metadata-item">Size: {{Size}}</li>
+      <li class="section__metadata-item">Format: {{Format}}</li>
+    </ul>
+  </section>
   
-  <p class="return">
-    <a href="/">Upload new image</a>
-  </p>
+
+  <section class="section__return">
+    <p><a href="/">Upload new image</a></p>
+  </section>  
+
+  <section class="section__contact">
+    <a href="https://www.facebook.com/" aria-label="facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://twitter.com/" aria-label="twitter"><i class="fab fa-twitter"></i></a>
+    <a href="https://www.instagram.com/" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+  </section>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
